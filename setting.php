@@ -37,20 +37,20 @@
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="shop.html" class="nav-link">Shop</a>
+                            <a href="shop.php" class="nav-link">Shop</a>
                         </li>
                         <li class="nav-item">
                             <a href="auth/register.php" class="nav-link">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a href="login.html" class="nav-link">Login</a>
+                            <a href="auth/login.html" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="avatar-header"><img src="assets/img/logo/avatar.jpg"></div> John Doe
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="transaction.html">Transactions History</a>
+                                <a class="dropdown-item" href="transaction.php">Transactions History</a>
                                 <a class="dropdown-item" href="setting.html">Settings</a>
                             </div>
                           </li>
@@ -135,59 +135,64 @@
             <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('assets/img/bg-header.jpg');">
                 <div class="container">
                     <h1 class="pt-5">
-                        Your Transactions
+                        Settings
                     </h1>
                     <p class="lead">
-                        Save time and leave the groceries to us.
+                        Update Your Account Info
                     </p>
                 </div>
             </div>
         </div>
 
-        <section id="cart">
+        <section id="checkout">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th width="5%"></th>
-                                        <th>Invoice</th>
-                                        <th>Date</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            AL121N8H2XQB47
-                                        </td>
-                                        <td>
-                                            12-12-2017
-                                        </td>
-                                        <td>
-                                            Rp 200.000
-                                        </td>
-                                        <td>
-                                            Delivered
-                                        </td>
-                                        
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                      
+                <div class="row justify-content-center">
+                    <div class="col-xs-12 col-sm-6">
+                        <h5 class="mb-3">ACCOUNT DETAILS</h5>
+                        <!-- Bill Detail of the Page -->
+                        <form action="#" class="bill-detail">
+                            <fieldset>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <input class="form-control" placeholder="Full Name" type="text">
+                                    </div>
+                                   
+                                </div>
+                               
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Address"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Town / City" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="State / Country" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Postcode / Zip" type="text">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <input class="form-control" placeholder="Email Address" type="email">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" placeholder="Phone Number" type="tel">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" type="password">
+                                </div>
+                                <div class="form-group text-right">
+                                    <a href="#" class="btn btn-primary">UPDATE</a>
+                                    <div class="clearfix">
+                                </div>
+                            </fieldset>
+                        </form>
+                        <!-- Bill Detail of the Page end -->
                     </div>
                 </div>
             </div>
         </section>
-
-       
     </div>
     <footer>
         <div class="container">
@@ -203,10 +208,10 @@
                             <a href="about.php">About</a>
                         </li>
                         <li>
-                            <a href="contact.html">Contact Us</a>
+                            <a href="contact.php">Contact Us</a>
                         </li>
                         <li>
-                            <a href="faq.html">FAQ</a>
+                            <a href="faq.php">FAQ</a>
                         </li>
                         <li>
                             <a href="javascript:void(0)">How it Works</a>

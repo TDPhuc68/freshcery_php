@@ -3,6 +3,7 @@
 //    header('location: http://localhost/freshcery/index.php');
 //    exit;
 //}
+
 try{
     //host
     define("HOST", "localhost");

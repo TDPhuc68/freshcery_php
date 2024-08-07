@@ -2,12 +2,16 @@
 require "../includes/header.php"; ?>
 <?php require "../config/config.php"; ?>
 <?php
+if(isset($_SESSION['username'])){
 
-        if(isset($_POST['submit'])){
+    echo "<script> window.location.href='".APPURL."';</script>";
 
-            if(empty($_POST['fullname']) OR empty($_POST['email']) OR empty($_POST['password']) OR empty($_POST['username'])){
-                echo "<script>alert('one or more inputs are empty');</script>";
-            }else{
+}
+if(isset($_POST['submit'])){
+
+    if(empty($_POST['fullname']) OR empty($_POST['email']) OR empty($_POST['password']) OR empty($_POST['username'])){
+        echo "<script>alert('one or more inputs are empty');</script>";
+    }else{
 
                 if($_POST['password'] == $_POST['confirm_password']) {
                     $fullname = $_POST['fullname'];
@@ -27,8 +31,12 @@ require "../includes/header.php"; ?>
                           ":image" =>$image,
                   ]);
 
-                  header("location: ".APPURL."/login.php");
-                  //abc
+                // header("location: ".APPURL."/login.php");
+                   // header('Location: login.php');
+
+                    echo "<script> window.location.href='login.php';</script>";
+
+                    //abc
                 }else {
                       echo "<script>alert('password sai , viet dung lai');</script>";
                 }

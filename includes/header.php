@@ -1,4 +1,5 @@
 <?php
+    session_start();
     define ("APPURL", "http://localhost/freshcery");
 ?>
 <!DOCTYPE html>
@@ -40,21 +41,35 @@
                 <!-- Navbar Menu -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="<?php echo APPURL ;?>/shop.php" class="nav-link">Shop</a>
+
                     </li>
                     <li class="nav-item">
-                        <a href="register.html" class="nav-link">Register</a>
+                        <a href="<?php echo APPURL ;?>/faq.php" class="nav-link">FAQ</a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="<?php echo APPURL ;?>/contact.php" class="nav-link">Contact</a>
+
+                    </li>
+                    <?php if(!isset($_SESSION['username'])) : ?>
+                    <li class="nav-item">
+                        <a href="<?php echo APPURL ;?>/auth/register.php" class="nav-link">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a href="login.html" class="nav-link">Login</a>
+                        <a href="<?php echo APPURL ;?>/auth/login.php" class="nav-link">Login</a>
                     </li>
+                    <?php else: ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar-header"><img src="<?php echo APPURL ;?>/assets/img/logo/avatar.jpg"></div> John Doe
+                            <div class="avatar-header"><img src="<?php echo APPURL ;?>/assets/img/logo/<?php echo $_SESSION['image'];?>"></div> <?php echo $_SESSION['username']; ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="transaction.html">Transactions History</a>
-                            <a class="dropdown-item" href="setting.html">Settings</a>
+                            <a class="dropdown-item" href="<?php echo APPURL ;?>/transaction.php">Transactions History</a>
+                            <a class="dropdown-item" href="<?php echo APPURL ;?>/setting.php">Settings</a>
+                            <a class="dropdown-item" href="<?php echo APPURL;?>/auth/logout.php"> Log out</a>
+
                         </div>
                     </li>
                     <li class="nav-item">
@@ -63,6 +78,7 @@
                         </a>
 
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div>
 
