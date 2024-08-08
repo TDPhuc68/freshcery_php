@@ -28,7 +28,7 @@
     <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-transparent" id="page-navigation">
         <div class="container">
             <!-- Navbar Brand -->
-            <a href="index.html" class="navbar-brand">
+            <a href="<?php echo APPURL; ?>" class="navbar-brand">
                 <img src="<?php echo APPURL ;?>/assets/img/logo/logo.png" alt="">
             </a>
 
