@@ -102,7 +102,7 @@ require "includes/header.php"; ?>
 <!--                                            <span class="discount">Rp. 300.000</span>-->
                                             <span class="reguler"><?php echo $allmostProduct->price; ?>$</span>
                                         </div>
-                                        <a href="products/detail-product.php" class="btn btn-block btn-primary">
+                                        <a href="<?php echo APPURL; ?>/products/detail-product.php?id=<?php echo $allmostProduct->id; ?>" class="btn btn-block btn-primary">
                                             Add to Cart
                                         </a>
 
