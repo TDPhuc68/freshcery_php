@@ -1,55 +1,65 @@
-<?php
-global $conn;
+<?php global $conn;
 require "../includes/header.php"; ?>
 <?php require "../config/config.php"; ?>
 <?php
 
-if(isset($_SESSION['username'])){
+if(isset($_SESSION['username'])) {
 
-    echo "<script> window.location.href='".APPURL."';</script>";
+    echo "<script> window.location.href='".APPURL."'; </script>";
 
 }
-if(isset($_POST['submit'])){
 
-    if(empty($_POST['email']) OR empty($_POST['password'])){
-        echo "<script>alert('one or more inputs are empty');</script>";
-    }else {
+if(isset($_POST['submit'])) {
+
+    if(empty($_POST['email']) OR empty($_POST['password'])
+    ) {
+
+        echo "<script>alert('one or more inputs are empty')</script>";
+
+    } else {
 
         $email = $_POST['email'];
         $password = $_POST['password'];
 
         //query
+
         $login = $conn->query("SELECT * FROM users WHERE email='$email'");
         $login->execute();
 
-        $fetch =$login->fetch(PDO::FETCH_ASSOC);
+        $fetch = $login->fetch(PDO::FETCH_ASSOC);
+
         //validate email
-        if($login->rowCount() > 0){
-         // validate pass
 
-            if(password_verify($password,$fetch['mypassword'])) {
-               // echo "LOGGED IN";
-                $_SESSION['username'] =$fetch['username'];
-                $_SESSION['email'] =$fetch['email'];
-                $_SESSION['user_id'] =$fetch['id'];
-                $_SESSION['image'] =$fetch['image'];
+        if($login->rowCount() > 0) {
 
-                echo "<script> window.location.href='".APPURL."';</script>";
+            //validate pass
 
+            if(password_verify($password, $fetch['mypassword'])) {
 
+                $_SESSION['username'] = $fetch['username'];
+                $_SESSION['email'] = $fetch['email'];
+                $_SESSION['user_id'] = $fetch['id'];
+                $_SESSION['image'] = $fetch['image'];
 
-            }else{
+                echo "<script> window.location.href='".APPURL."'; </script>";
+
+            } else {
+
                 echo "<script>alert('email or password is wrong')</script>";
 
             }
-        }else{
 
+        } else {
             echo "<script>alert('email or password is wrong')</script>";
 
         }
+
     }
 }
+
+
 ?>
+
 <div id="page-content" class="page-content">
     <div class="banner">
         <div class="jumbotron jumbotron-bg text-center rounded-0" style="background-image: url('<?php echo APPURL; ?>/assets/img/bg-header.jpg');">
@@ -71,7 +81,7 @@ if(isset($_POST['submit'])){
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <input class="form-control" name ="password" type="password" required="" placeholder="Password">
+                                    <input class="form-control" name="password" type="password" required="" placeholder="Password">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -96,12 +106,3 @@ if(isset($_POST['submit'])){
     </div>
 </div>
 <?php require "../includes/footer.php"; ?>
-//a@gmail.com  user1  123
-//b@gmail.com  user2  123
-
-
-
-
-
-
-
