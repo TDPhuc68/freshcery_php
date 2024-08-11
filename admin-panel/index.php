@@ -1,8 +1,8 @@
-<?php global $conn;
-require "layouts/header.php"; ?>
-<?php require "../config/config.php"; ?>
-
 <?php
+global $conn;
+require "layouts/header.php";
+require "../config/config.php";
+
 if(!isset($_SESSION['adminname'])) {
     echo "<script> window.location.href='".ADMINURL."/admins/login-admins.php'; </script>";
 }
@@ -26,6 +26,40 @@ $num_categories = $categories->fetch(PDO::FETCH_OBJ);
 $admins = $conn->query("SELECT COUNT(*) as admins_num FROM admins");
 $admins->execute();
 $num_admins = $admins->fetch(PDO::FETCH_OBJ);
+
+// Truy vấn doanh thu theo tháng
+$revenueByMonth = $conn->query("
+    SELECT DATE_FORMAT(created_at, '%Y-%m') as order_month, SUM(price) as total_revenue 
+    FROM orders 
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+    ORDER BY order_month ASC
+");
+$revenueByMonth->execute();
+$revenues = $revenueByMonth->fetchAll(PDO::FETCH_OBJ);
+
+// Truy vấn số lượng đơn hàng theo tháng từ bảng orders
+$ordersByMonth = $conn->query("
+    SELECT DATE_FORMAT(created_at, '%Y-%m') as order_month, COUNT(*) as total_orders 
+    FROM orders 
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+    ORDER BY order_month ASC
+");
+$ordersByMonth->execute();
+$ordersCount = $ordersByMonth->fetchAll(PDO::FETCH_OBJ);
+
+// Chuẩn bị dữ liệu cho biểu đồ doanh thu theo tháng
+$months = [];
+$revenuesData = [];
+foreach ($revenues as $revenue) {
+    $months[] = $revenue->order_month;
+    $revenuesData[] = $revenue->total_revenue;
+}
+
+// Chuẩn bị dữ liệu cho biểu đồ số lượng đơn hàng theo tháng
+$ordersData = [];
+foreach ($ordersCount as $order) {
+    $ordersData[] = $order->total_orders;
+}
 ?>
 
 <style>
@@ -78,7 +112,6 @@ $num_admins = $admins->fetch(PDO::FETCH_OBJ);
         background-color: rgba(41, 227, 171, 0.94); /* Xanh nhạt cho Orders */
     }
 
-
     .row:nth-child(3) .card {
         background-color: #d21010; /* Vàng nhạt cho Categories */
     }
@@ -99,41 +132,110 @@ $num_admins = $admins->fetch(PDO::FETCH_OBJ);
             align-items: center;
         }
     }
+
+    /* Styles cho biểu đồ */
+    #revenueChartContainer, #ordersChartContainer {
+        width: 100%; /* Cùng kích thước cho cả hai biểu đồ */
+        margin: 20px auto;
+    }
 </style>
 
+<!-- Phần hiển thị hai biểu đồ ngang bằng nhau -->
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Products</h5>
-                <p class="card-text">number of products: <?php echo $num_products->products_num; ?></p>
+                <h5 class="card-title">Doanh thu theo tháng</h5>
+                <div id="revenueChartContainer">
+                    <canvas id="revenueChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Orders</h5>
-                <p class="card-text">number of orders: <?php echo $num_orders->orders_num; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Categories</h5>
-                <p class="card-text">number of categories: <?php echo $num_categories->categories_num; ?></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Admins</h5>
-                <p class="card-text">number of admins: <?php echo $num_admins->admins_num; ?></p>
+                <h5 class="card-title">Số lượng đơn hàng theo tháng</h5>
+                <div id="ordersChartContainer">
+                    <canvas id="ordersChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Biểu đồ tròn doanh thu theo tháng
+    var ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+    var revenueChart = new Chart(ctxRevenue, {
+        type: 'pie',
+        data: {
+            labels: <?php echo json_encode($months); ?>, // Tháng
+            datasets: [{
+                label: 'Doanh thu theo tháng',
+                data: <?php echo json_encode($revenuesData); ?>, // Doanh thu
+                backgroundColor: [
+                    '#ff6384',
+                    '#36a2eb',
+                    '#cc65fe',
+                    '#ffce56',
+                    '#2e93f9',
+                    '#2ed8b6',
+                    '#ff5252'
+                ],
+                borderColor: [
+                    '#fff'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Thống kê doanh thu theo tháng'
+                }
+            }
+        }
+    });
+
+    // Biểu đồ cột số lượng đơn hàng theo tháng
+    var ctxOrders = document.getElementById('ordersChart').getContext('2d');
+    var ordersChart = new Chart(ctxOrders, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($months); ?>, // Tháng
+            datasets: [{
+                label: 'Số lượng đơn hàng',
+                data: <?php echo json_encode($ordersData); ?>, // Số lượng đơn hàng
+                backgroundColor: '#36a2eb',
+                borderColor: '#007bff',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Thống kê số lượng đơn hàng theo tháng'
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+    });
+</script>
 
 <?php require "layouts/footer.php"; ?>
