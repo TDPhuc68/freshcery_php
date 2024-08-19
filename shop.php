@@ -326,5 +326,8 @@ $allFruits = $fruits->fetchAll(PDO::FETCH_OBJ);
         </div>
     </section>
 </div>
+
+
+
 <?php require "includes/footer.php"; ?>
 

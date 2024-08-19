@@ -80,4 +80,5 @@
         </div>
     </section>
 </div>
-<?php require "includes/footer.php"; ?>
+
+<script type="module" defer crossorigin data-id="2af3b89f-f2ae-4efe-87e1-fb18eb6e1456" data-name="MantaAssistant" src="https://barnaclestudios.com/js/scripts/site/chat/externalassistant.js"></script>
