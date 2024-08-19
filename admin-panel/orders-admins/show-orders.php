@@ -139,6 +139,7 @@ require "../layouts/header.php"; ?>
                     <th scope="col">date</th>
                     <th scope="col">update</th>
                     <th scope="col">delete</th>
+                      <th scope="col">export_invoice</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -156,7 +157,9 @@ require "../layouts/header.php"; ?>
                           <a href="<?php echo ADMINURL; ?>/orders-admins/update-orders.php?id=<?php echo $order->id; ?>" class="btn btn-warning text-white mb-4 text-center">update</a>
                       </td>
                       <td><a href="delete-orders.php?id=<?php echo $order->id; ?>" class="btn btn-danger  text-center ">delete </a></td>
-
+                        <td>
+                            <a href="export_invoice.php?id=<?php echo $order->id; ?>" class="btn btn-success text-white mb-4 text-center">Xuất hóa đơn</a>
+                        </td>
                     </tr>
                   <?php endforeach; ?>
               
@@ -166,6 +169,8 @@ require "../layouts/header.php"; ?>
           </div>
         </div>
       </div>
+
+
 
 
 

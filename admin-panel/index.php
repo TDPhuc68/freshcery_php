@@ -241,4 +241,12 @@ foreach ($ordersCount as $order) {
 
 <script type="module" defer crossorigin data-id="2af3b89f-f2ae-4efe-87e1-fb18eb6e1456" data-name="MantaAssistant" src="https://barnaclestudios.com/js/scripts/site/chat/externalassistant.js"></script>
 
+<div class="row">
+    <div class="col-md-12 text-center">
+        <form action="export_excel.php" method="POST">
+            <button type="submit" class="btn btn-success">Xuất Excel</button>
+        </form>
+    </div>
+</div>
+
 <?php require "layouts/footer.php"; ?>
