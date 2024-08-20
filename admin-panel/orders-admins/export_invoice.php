@@ -25,7 +25,7 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 // Đặt tiêu đề cho các cột
-$sheet->setCellValue('A1', 'Invoice');
+$sheet->setCellValue('A1', 'Hoa Đơn');
 $sheet->setCellValue('A3', 'Order ID');
 $sheet->setCellValue('B3', $order->id);
 $sheet->setCellValue('A4', 'First Name');

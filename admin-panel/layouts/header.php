@@ -48,7 +48,10 @@
             <li class="nav-item">
               <a class="nav-link" href="<?php echo ADMINURL; ?>/orders-admins/show-orders.php" style="margin-left: 20px;">Orders</a>
             </li>
-          
+
+              <li class="nav-item">
+                  <a class="nav-link" href="<?php echo ADMINURL; ?>/orders-admins/analytic.php" style="margin-left: 20px;">Phân tích đánh giá KH</a>
+              </li>
           </ul>
         <?php endif; ?>  
         <ul class="navbar-nav ml-md-auto d-md-flex">

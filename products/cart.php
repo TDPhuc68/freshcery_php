@@ -98,7 +98,12 @@ if(isset($_POST['submit'])) {
                 <div class="col">
                     <a href="<?php echo APPURL; ?>/shop.php" class="btn btn-default">Continue Shopping</a>
                 </div>
+                <div class="col">
+                    <a href="<?php echo APPURL; ?>/search_recommend.php" class="btn btn-default">Recommend Shopping!</a>
+                </div>
+
                 <div class="col text-right">
+
 
                     <div class="clearfix"></div>
                     <h6 class="full_price mt-3"></h6>
